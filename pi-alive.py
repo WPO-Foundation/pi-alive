@@ -32,6 +32,10 @@ def main():
         response = os.system('ping -c 2 -i 0.2 -n -W 1 {0} > /dev/null 2>&1'.format(options.ping))
         if response == 0:
             print 'OK: ping succeeded'
+            # Update the alive file to avoid pinging all the time
+            if options.file:
+                with open(options.file, 'a'):
+                    os.utime(options.file, None)
             exit(0)
 
     print 'FAIL: No checks passed'
