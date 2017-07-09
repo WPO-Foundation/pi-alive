@@ -14,6 +14,9 @@ def main():
     parser.add_argument('--ping', help="Address to ping as a last resort.")
     options, _ = parser.parse_known_args()
 
+    with open('/tmp/pi-alive', 'a'):
+        os.utime('/tmp/pi-alive', None)
+    
     # If it has been up for less than an hour, it is OK (avoid boot loops)
     if os.path.isfile('/proc/uptime'):
         with open('/proc/uptime', 'r') as f_in:
